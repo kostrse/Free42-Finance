@@ -1,100 +1,107 @@
 @ Origianl sources decompiled from TVM program shared by Dave Britten on SwissMicros calculator forum
 @ https://forum.swissmicros.com/viewtopic.php?p=9057#p9057
 
+@ TVM main menu
 LBL 00
 CLMENU
 "N"
-KEY 1 XEQ 21
+KEY 1 XEQ 21			@ Key "N"
 "I%YR"
-KEY 2 XEQ 22
+KEY 2 XEQ 22			@ Key "I%YR"
 "PV"
-KEY 3 XEQ 23
+KEY 3 XEQ 23			@ Key "PV"
 "PMT"
-KEY 4 XEQ 24
+KEY 4 XEQ 24			@ Key "PMT"
 "FV"
-KEY 5 XEQ 25
+KEY 5 XEQ 25			@ Key "FV"
 "P/YR"
-KEY 6 XEQ 26
-KEY 7 GTO 01
-KEY 8 GTO 01
+KEY 6 XEQ 26			@ Key "P/YR"
+KEY 7 GTO 01			@ Second menu
+KEY 8 GTO 01			@ Second menu
 MENU
 STOP
-GTO 00
+GTO 00					@ Menu loop
 
+@ TVM second menu
 LBL 01
 CLMENU
 "×12N"
-KEY 1 XEQ 31
+KEY 1 XEQ 31			@ Key "×12N"
 "BEG"
 FS? 01
 ├"•"
-KEY 2 XEQ 32
+KEY 2 XEQ 32			@ Key "BEG"
 "END"
 FC? 01
 ├"•"
-KEY 3 XEQ 33
+KEY 3 XEQ 33			@ Key "END"
 "PRINT"
-KEY 4 XEQ 34
+KEY 4 XEQ 34			@ Not implemented
 "CLR"
-KEY 5 XEQ "CLRFIN"
+KEY 5 XEQ "CLRFIN"		@ Clear finance variables
 "AMRT"
-KEY 6 GTO 36
-KEY 7 GTO 00
-KEY 8 GTO 00
+KEY 6 GTO 36			@ Key "AMRT"
+KEY 7 GTO 00			@ Main menu
+KEY 8 GTO 00			@ Main menu
 MENU
 STOP
-GTO 01
+GTO 01					@ Menu loop
 
+@ Key "AMRT"
 LBL 36
-XEQ "CLRAMRT"
+XEQ "CLRAMRT"			@ Clear amortization
+@ Amortization menu
 LBL 02
 CLMENU
 "#P"
-KEY 1 XEQ 41
+KEY 1 XEQ 41			@ Key "#P"
 "INT"
-KEY 2 XEQ 42
+KEY 2 XEQ 42			@ Display interest payment
 "PRIN"
-KEY 3 XEQ 43
+KEY 3 XEQ 43			@ Display principal payment
 "BAL"
-KEY 4 XEQ 44
+KEY 4 XEQ 44			@ Display remaining balance
 "NEXT"
 KEY 5 XEQ 45
 "TABLE"
-KEY 6 GTO 04
-KEY 7 GTO 03
-KEY 8 GTO 03
-KEY 9 GTO 00
+KEY 6 GTO 04			@ Table menu
+KEY 7 GTO 03			@ Amortization second menu
+KEY 8 GTO 03			@ Amortization second menu
+KEY 9 GTO 00			@ TVM main menu
 MENU
 STOP
-GTO 02
+GTO 02					@ Menu loop
 
+@ Amortization second menu
 LBL 03
 CLMENU
 "CLR"
-KEY 1 XEQ "CLRAMRT"
-KEY 7 GTO 02
-KEY 8 GTO 02
+KEY 1 XEQ "CLRAMRT"		@ Clear amortization
+KEY 7 GTO 02			@ Amortization menu
+KEY 8 GTO 02			@ Amortization menu
 MENU
 STOP
-GTO 03
+GTO 03					@ Menu loop
 
+@ Table menu
 LBL 04
 CLMENU
 "FIRST"
-KEY 1 XEQ 51
+KEY 1 XEQ 51			@ Not implemented
 "LAST"
-KEY 2 XEQ 52
+KEY 2 XEQ 52			@ Not implemented
 "INCR"
-KEY 3 XEQ 53
+KEY 3 XEQ 53			@ Not implemented
 "GO"
-KEY 6 XEQ 56
-KEY 9 GTO 02
+KEY 6 XEQ 56			@ Not implemented
+KEY 9 GTO 02			@ Amortization menu
 MENU
 STOP
-GTO 03
+GTO 03					@ Menu loop
 
+@ Clear finance variables
 LBL "CLRFIN"
-XEQ 90
+XEQ 90					@ Save stack
 CLX
 STO "PMT'"
 STO "BAL"
@@ -108,20 +115,23 @@ STO "I%YR"
 STO "N"
 12
 STO "P/YR"
-XEQ 91
+XEQ 91					@ Restore whole stack
 
+@ Key "END"
 LBL "TVMEND"
 LBL 33
 CF 01
 RTN
 
+@ Key "BEG"
 LBL "TVMBEG"
 LBL 32
 SF 01
 RTN
 
+@ Clear amortization
 LBL "CLRAMRT"
-XEQ 90
+XEQ 90					@ Save stack
 RCL "PMT"
 RND
 STO "PMT'"
@@ -137,73 +147,81 @@ STO "FIRST"
 STO "LAST"
 1
 STO "INCR"
-XEQ 91
+XEQ 91					@ Restore whole stack
 RTN
 
+@ Key "N"
 LBL 21
 FC?C 22
-XEQ "N"
+XEQ "N"					@ Calculate number of periods
 STO "N"
 VIEW "N"
 RTN
 
+@ Key "I%YR"
 LBL 22
 FC?C 22
-XEQ "I%YR"
+XEQ "I%YR"				@ Calculate interest rate
 STO "I%YR"
 VIEW "I%YR"
 RTN
 
+@ Key "PV"
 LBL 23
 FC?C 22
-XEQ "PV"
+XEQ "PV"				@ Calculate present value
 STO "PV"
 VIEW "PV"
 RTN
 
+@ Key "PMT"
 LBL 24
 FC?C 22
-XEQ "PMT"
+XEQ "PMT"				@ Calculate periodic payment
 STO "PMT"
 VIEW "PMT"
 RTN
 
+@ Key "FV"
 LBL 25
 FC?C 22
-XEQ "FV"
+XEQ "FV"				@ Calculate future value
 STO "FV"
 VIEW "FV"
 RTN
 
+@ Key "P/YR"
 LBL 26
 STO "P/YR"
 VIEW "P/YR"
 RTN
 
+@ Key "×12N"
 LBL 31
-XEQ 90
+XEQ 90					@ Save stack
 12
 *
 STO "N"
 VIEW "N"
 CF 22
-XEQ 93
+XEQ 93					@ Restore Y,Z,T, leave result in X
 GTO 00
 
 LBL "SPPV"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 15
 +/-
 *
 E^X
-GTO 94
+GTO 94					@ Restore Z->Y,T->Z,T, leave result in X
 
 LBL "SPFV"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 15
 *
 E^X
-GTO 94
+GTO 94					@ Restore Z->Y,T->Z,T, leave result in X
+
 LBL 15
 X<>Y
 100
@@ -213,7 +231,7 @@ X<>Y
 RTN
 
 LBL "USPV"
-XEQ 90
+XEQ 90					@ Save stack
 RCL ST Y
 X<>Y
 XEQ 15
@@ -225,10 +243,10 @@ X<>Y
 100
 /
 /
-GTO 94
+GTO 94					@ Restore Z->Y,T->Z,T, leave result in X
 
 LBL "USFV"
-XEQ 90
+XEQ 90					@ Save stack
 RCL ST Y
 X<>Y
 XEQ 15
@@ -238,10 +256,11 @@ X<>Y
 100
 /
 /
-GTO 94
+GTO 94					@ Restore Z->Y,T->Z,T, leave result in X
 
+@ Calculate number of periods
 LBL "N"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 11
 RCL* "PMT"
 RCL+ "PV"
@@ -251,19 +270,21 @@ RCL+ "FV"
 +/-
 *
 LN1+X
-XEQ 10
+XEQ 10					@ Calculate interest rate for 1 period
 LN1+X
 /
 STO "N"
-GTO 92
+GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
+@ Calculate interest rate
 LBL "I%YR"
-XEQ 90
+XEQ 90					@ Save stack
 PGMSLV "TVM"
 RCL "I%YR"
 SOLVE "I%YR"
-GTO 92
+GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
+@ TVM equation for solver (for calculating I%/YR)
 LBL 70
 XEQ 11
 XEQ 13
@@ -275,8 +296,9 @@ RCL* "PV"
 RCL+ "FV"
 RTN
 
+@ Calculate present value
 LBL "PV"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 13
 RCL* "PMT"
 XEQ 11
@@ -286,10 +308,11 @@ XEQ 14
 /
 +/-
 STO "PV"
-GTO 92
+GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
+@ Calculate periodic payment
 LBL "PMT"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 14
 RCL* "PV"
 RCL+ "FV"
@@ -299,10 +322,11 @@ XEQ 11
 /
 +/-
 STO "PMT"
-GTO 92
+GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
+@ Calculate future value
 LBL "FV"
-XEQ 90
+XEQ 90					@ Save stack
 XEQ 13
 RCL* "PMT"
 XEQ 11
@@ -312,8 +336,9 @@ RCL* "PV"
 +
 +/-
 STO "FV"
-GTO 92
+GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
+@ Calculate interest rate for 1 period
 LBL 10
 RCL "I%YR"
 RCL/ "P/YR"
@@ -322,12 +347,13 @@ RCL/ "P/YR"
 RTN
 
 LBL 11
-XEQ 10
+XEQ 10					@ Calculate interest rate for 1 period
 1/X
-XEQ 12
+XEQ 12					@ Return 0/1 for payment at beginning/end of period
 +
 RTN
 
+@ Return 0/1 for payment at beginning/end of period
 LBL 12
 0
 FS? 01
@@ -335,7 +361,7 @@ FS? 01
 RTN
 
 LBL 13
-XEQ 10
+XEQ 10					@ Calculate interest rate for 1 period
 LN1+X
 RCL* "N"
 2
@@ -350,20 +376,20 @@ SINH
 RTN
 
 LBL 14
-XEQ 10
+XEQ 10					@ Calculate interest rate for 1 period
 LN1+X
 RCL* "N"
 E^X
 RTN
 
+@ Amortization Key "#P"
 LBL 41
 STO "#P"
 LBL 45
-XEQ 60
-FS? 91
+XEQ 60					@ Amortize #P payments
+FS? 91					@ If amortization error
 RTN
-
-XEQ 90
+XEQ 90					@ Save stack
 "#P="
 RCL "#P"
 AIP
@@ -373,28 +399,32 @@ AIP
 ├"-"
 RCL "LAST"
 AIP
-XEQ 91
+XEQ 91					@ Restore whole stack
 AVIEW
 RTN
 
+@ Display interest payment
 LBL 42
 RCL "INT"
 VIEW "INT"
 RTN
 
+@ Display principal payment
 LBL 43
 RCL "PRIN"
 VIEW "PRIN"
 RTN
 
+@ Display remaining balance
 LBL 44
 RCL "BAL"
 VIEW "BAL"
 RTN
 
+@ Amortize #P payments
 LBL 60
-CF 91
-XEQ 90
+CF 91					@ Unset amortization error
+XEQ 90					@ Save stack
 0
 STO "INT"
 STO "PRIN"
@@ -449,17 +479,19 @@ RCL "#P"
 RCL "BAL"
 RCL "PRIN"
 RCL "INT"
-XEQ 95
+XEQ 95					@ Restore LastX only, leave results in X,Y,Z,T
 CLV "_P"
 RTN
 
 LBL 67
-SF 91
+SF 91					@ Set amortization error
 "Invalid #P"
 AVIEW
-GTO 91
+GTO 91					@ Restore whole stack
+
+@ Move TVM variables to front
 LBL 80
-XEQ 90
+XEQ 90					@ Save stack
 "INCR"
 1
 XEQ 81
@@ -505,9 +537,10 @@ XEQ 81
 "N"
 0
 XEQ 81
-XEQ 91
+XEQ 91					@ Restore whole stack
 RTN
 
+@ Move 1 variable to front, create with default if necessary
 LBL 81
 ASTO ST Y
 SF 25
@@ -518,6 +551,7 @@ CLV IND ST Y
 STO IND ST Y
 RTN
 
+@ Save stack
 LBL 90
 STO "_XFIN"
 R↓
@@ -532,6 +566,7 @@ STO "_LFIN"
 X<> ST L
 RTN
 
+@ Restore whole stack
 LBL 91
 RCL "_LFIN"
 STO ST L
@@ -539,8 +574,9 @@ RCL "_TFIN"
 RCL "_ZFIN"
 RCL "_YFIN"
 RCL "_XFIN"
-GTO 99
+GTO 99					@ Clear saved stack
 
+@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 LBL 92
 RCL "_LFIN"
 STO ST L
@@ -549,8 +585,9 @@ RCL "_ZFIN"
 RCL "_YFIN"
 RCL "_XFIN"
 R^
-GTO 99
+GTO 99					@ Clear saved stack
 
+@ Restore Y,Z,T, leave result in X
 LBL 93
 RCL "_XFIN"
 STO ST L
@@ -559,8 +596,9 @@ RCL "_TFIN"
 RCL "_ZFIN"
 RCL "_YFIN"
 R^
-GTO 99
+GTO 99					@ Clear saved stack
 
+@ Restore Z->Y,T->Z,T, leave result in X
 LBL 94
 RCL "_XFIN"
 STO "_LFIN"
@@ -569,15 +607,17 @@ RCL "_TFIN"
 RCL "_TFIN"
 RCL "_ZFIN"
 R^
-GTO 99
+GTO 99					@ Clear saved stack
 
+@ Restore LastX only, leave results in X,Y,Z,T
 LBL 95
 X<> ST L
 CLX
 RCL "_LFIN"
 X<> ST L
-GTO 99
+GTO 99					@ Clear saved stack
 
+@ Clear saved stack
 LBL 99
 CLV "_XFIN"
 CLV "_YFIN"
@@ -586,9 +626,10 @@ CLV "_TFIN"
 CLV "_LFIN"
 RTN
 
+@ TVM entry-point function
 LBL "TVM"
 FS? 45
-GTO 70
-XEQ 80
-GTO 00
+GTO 70					@ TVM equation for solver (for calculating I%/YR)
+XEQ 80					@ Move TVM variables to front
+GTO 00					@ Display TVM menu
 END

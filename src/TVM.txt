@@ -3,7 +3,8 @@ Labels
 "TVM", 0 - Main TVM menu
 01 - Second TVM menu (BEG/END, AMORT, etc.)
 02 - Amortization menu
-03 - Amortization table menu
+03 - Second amortization menu
+04 - Amortization table menu
 
 "CLRFIN" - Clear finance variables
 "SPPV" - Single payment present value
@@ -44,7 +45,7 @@ Amort Table Menu:
 "PMT" - Solve PMT
 "FV" - Solve FV
 
-"AMORT", 60 - Amortize #P payments
+60 - Amortize #P payments
 65 - Skip first period interest (begin mode)
 62 - Amort payment loop
 67 - Cancel amort with "Invalid #P" error
