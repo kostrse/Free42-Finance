@@ -6,7 +6,6 @@ Labels
 03 - Second amortization menu
 04 - Amortization table menu
 
-"CLRFIN" - Clear finance variables
 "SPPV" - Single payment present value
 "SPFV" - Single payment future value
 "USPV" - Uniform series present value
@@ -20,10 +19,10 @@ TVM Menu:
 25 - Key "FV"
 26 - Key "P/YR"
 31 - Key "x12"
-"TVMBEG", 32 - Key "BEG"
-"TVMEND", 33 - Key "END"
-"PRINTTVM", 34 - Key "PRINT"
-"CLRFIN" - Key "CLR"
+32 - Key "BEG"
+33 - Key "END"
+34 - Key "PRINT"
+35 - Key "CLR"
 36 - Key "AMRT"
 
 Amort Menu:
@@ -32,18 +31,19 @@ Amort Menu:
 43 - Key "PRIN"
 44 - Key "BAL"
 45 - Key "NEXT"
+50 - Clear amortization
 
 Amort Table Menu:
-51 - Key "FIRST"
-52 - Key "LAST"
-53 - Key "INCR"
-56 - Key "GO"
+46 - Key "FIRST"
+47 - Key "LAST"
+48 - Key "INCR"
+49 - Key "GO"
 
-"N" - Solve N
-"I%YR" - Solve I%YR
-"PV" - Solve PV
-"PMT" - Solve PMT
-"FV" - Solve FV
+51 - Solve N
+52 - Solve I%YR
+53 - Solve PV
+54 - Solve PMT
+55 - Solve FV
 
 60 - Amortize #P payments
 65 - Skip first period interest (begin mode)

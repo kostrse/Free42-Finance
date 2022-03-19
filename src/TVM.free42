@@ -1,5 +1,8 @@
 @ Origianl sources decompiled from TVM program shared by Dave Britten on SwissMicros calculator forum
 @ https://forum.swissmicros.com/viewtopic.php?p=9057#p9057
+@
+@ Changes
+@ - Remove global lables for menu programs
 
 @ TVM main menu
 LBL 00
@@ -38,7 +41,7 @@ KEY 3 XEQ 33			@ Key "END"
 "PRINT"
 KEY 4 XEQ 34			@ Not implemented
 "CLR"
-KEY 5 XEQ "CLRFIN"		@ Clear finance variables
+KEY 5 XEQ 35			@ Clear finance variables
 "AMRT"
 KEY 6 GTO 36			@ Key "AMRT"
 KEY 7 GTO 00			@ Main menu
@@ -49,7 +52,7 @@ GTO 01					@ Menu loop
 
 @ Key "AMRT"
 LBL 36
-XEQ "CLRAMRT"			@ Clear amortization
+XEQ 50					@ Clear amortization
 @ Amortization menu
 LBL 02
 CLMENU
@@ -76,7 +79,7 @@ GTO 02					@ Menu loop
 LBL 03
 CLMENU
 "CLR"
-KEY 1 XEQ "CLRAMRT"		@ Clear amortization
+KEY 1 XEQ 50			@ Clear amortization
 KEY 7 GTO 02			@ Amortization menu
 KEY 8 GTO 02			@ Amortization menu
 MENU
@@ -87,20 +90,20 @@ GTO 03					@ Menu loop
 LBL 04
 CLMENU
 "FIRST"
-KEY 1 XEQ 51			@ Not implemented
+KEY 1 XEQ 46			@ Not implemented
 "LAST"
-KEY 2 XEQ 52			@ Not implemented
+KEY 2 XEQ 47			@ Not implemented
 "INCR"
-KEY 3 XEQ 53			@ Not implemented
+KEY 3 XEQ 48			@ Not implemented
 "GO"
-KEY 6 XEQ 56			@ Not implemented
+KEY 6 XEQ 49			@ Not implemented
 KEY 9 GTO 02			@ Amortization menu
 MENU
 STOP
 GTO 03					@ Menu loop
 
 @ Clear finance variables
-LBL "CLRFIN"
+LBL 35
 XEQ 90					@ Save stack
 CLX
 STO "PMT'"
@@ -118,19 +121,17 @@ STO "P/YR"
 XEQ 91					@ Restore whole stack
 
 @ Key "END"
-LBL "TVMEND"
 LBL 33
 CF 01
 RTN
 
 @ Key "BEG"
-LBL "TVMBEG"
 LBL 32
 SF 01
 RTN
 
 @ Clear amortization
-LBL "CLRAMRT"
+LBL 50
 XEQ 90					@ Save stack
 RCL "PMT"
 RND
@@ -153,7 +154,7 @@ RTN
 @ Key "N"
 LBL 21
 FC?C 22
-XEQ "N"					@ Calculate number of periods
+XEQ 51					@ Calculate number of periods
 STO "N"
 VIEW "N"
 RTN
@@ -161,7 +162,7 @@ RTN
 @ Key "I%YR"
 LBL 22
 FC?C 22
-XEQ "I%YR"				@ Calculate interest rate
+XEQ 52					@ Calculate interest rate
 STO "I%YR"
 VIEW "I%YR"
 RTN
@@ -169,7 +170,7 @@ RTN
 @ Key "PV"
 LBL 23
 FC?C 22
-XEQ "PV"				@ Calculate present value
+XEQ 53					@ Calculate present value
 STO "PV"
 VIEW "PV"
 RTN
@@ -177,7 +178,7 @@ RTN
 @ Key "PMT"
 LBL 24
 FC?C 22
-XEQ "PMT"				@ Calculate periodic payment
+XEQ 54					@ Calculate periodic payment
 STO "PMT"
 VIEW "PMT"
 RTN
@@ -185,7 +186,7 @@ RTN
 @ Key "FV"
 LBL 25
 FC?C 22
-XEQ "FV"				@ Calculate future value
+XEQ 55					@ Calculate future value
 STO "FV"
 VIEW "FV"
 RTN
@@ -259,7 +260,7 @@ X<>Y
 GTO 94					@ Restore Z->Y,T->Z,T, leave result in X
 
 @ Calculate number of periods
-LBL "N"
+LBL 51
 XEQ 90					@ Save stack
 XEQ 11
 RCL* "PMT"
@@ -277,7 +278,7 @@ STO "N"
 GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
 @ Calculate interest rate
-LBL "I%YR"
+LBL 52
 XEQ 90					@ Save stack
 PGMSLV "TVM"
 RCL "I%YR"
@@ -297,7 +298,7 @@ RCL+ "FV"
 RTN
 
 @ Calculate present value
-LBL "PV"
+LBL 53
 XEQ 90					@ Save stack
 XEQ 13
 RCL* "PMT"
@@ -311,7 +312,7 @@ STO "PV"
 GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
 @ Calculate periodic payment
-LBL "PMT"
+LBL 54
 XEQ 90					@ Save stack
 XEQ 14
 RCL* "PV"
@@ -325,7 +326,7 @@ STO "PMT"
 GTO 92					@ Restore X->Y,Y->Z,Z->T, lift stack with new result
 
 @ Calculate future value
-LBL "FV"
+LBL 55
 XEQ 90					@ Save stack
 XEQ 13
 RCL* "PMT"
