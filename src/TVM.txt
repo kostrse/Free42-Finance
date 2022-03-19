@@ -1,0 +1,86 @@
+Labels
+
+"TVM", 0 - Main TVM menu
+01 - Second TVM menu (BEG/END, AMORT, etc.)
+02 - Amortization menu
+03 - Amortization table menu
+
+"CLRFIN" - Clear finance variables
+"SPPV" - Single payment present value
+"SPFV" - Single payment future value
+"USPV" - Uniform series present value
+"USFV" - Uniform series future value
+
+TVM Menu:
+21 - Key "N"
+22 - Key "I%YR"
+23 - Key "PV"
+24 - Key "PMT"
+25 - Key "FV"
+26 - Key "P/YR"
+31 - Key "x12"
+"TVMBEG", 32 - Key "BEG"
+"TVMEND", 33 - Key "END"
+"PRINTTVM", 34 - Key "PRINT"
+"CLRFIN" - Key "CLR"
+36 - Key "AMRT"
+
+Amort Menu:
+41 - Key "#P"
+42 - Key "INT"
+43 - Key "PRIN"
+44 - Key "BAL"
+45 - Key "NEXT"
+
+Amort Table Menu:
+51 - Key "FIRST"
+52 - Key "LAST"
+53 - Key "INCR"
+56 - Key "GO"
+
+"N" - Solve N
+"I%YR" - Solve I%YR
+"PV" - Solve PV
+"PMT" - Solve PMT
+"FV" - Solve FV
+
+"AMORT", 60 - Amortize #P payments
+65 - Skip first period interest (begin mode)
+62 - Amort payment loop
+67 - Cancel amort with "Invalid #P" error
+
+10 - I%YR / P/YR / 100  (From LBL C in 32S)
+11 - 1/I + Beg. (From LBL D in 32S)
+12 - Beg.: 0/1 (From LBL B in 32S)
+13 - EX-1(LN1+X(I%YR / P/YR / 100) * N / 2) ? (From LBL K in 32S)
+14 - e^(LN1+X(I%YR / P/YR / 100) * N) (From LBL J in 32S)
+
+70 - TVM equation for solver (for calculating I%/YR)
+
+80 - Move TVM variables to front
+81 - Move 1 variable to front, create with default if necessary
+
+90 - Save stack
+91 - Restore whole stack
+92 - Restore X->Y,Y->Z,Z->T, lift stack with new result
+93 - Restore Y,Z,T, leave result in X
+94 - Restore Z->Y,T->Z,T, leave result in X
+95 - Restore LastX only, leave results in X,Y,Z,T
+99 - Clear saved stack
+
+Variables
+
+N
+I%YR
+PV
+PMT
+FV
+P/YR
+_X (Temporary)
+
+
+Flags
+
+01 - Begin mode
+90 - No interest this period (begin-mode amortization)
+91 - Amort error
